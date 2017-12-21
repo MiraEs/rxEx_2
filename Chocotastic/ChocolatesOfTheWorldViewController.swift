@@ -51,7 +51,7 @@ class ChocolatesOfTheWorldViewController: UIViewController {
   
   private func setupCartObserver() {
     ShoppingCart.sharedCart.chocolates.asObservable()
-      .subscribe(onNext: {
+      .subscribe( onNext: {
         chocolates in
         self.cartButton.title = "\(chocolates.count) \u{1f36b}"
       })
@@ -59,7 +59,8 @@ class ChocolatesOfTheWorldViewController: UIViewController {
   }
   
   private func setupCellConfiguration() {
-    europeanChocolates.bindTo(tableView
+    europeanChocolates.bindTo(
+      tableView
       .rx
       .items(cellIdentifier: ChocolateCell.Identifier,
              cellType: ChocolateCell.self)) {

@@ -21,13 +21,16 @@
  */
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class CartViewController: UIViewController {
   
   @IBOutlet private var checkoutButton: UIButton!
-  @IBOutlet private var totalItemsLabel: UILabel!
+  //@IBOutlet private var totalItemsLabel: UILabel!
   @IBOutlet private var totalCostLabel: UILabel!
-  
+  @IBOutlet weak var tableView: UITableView!
+  private let disposeBag = DisposeBag()
   
   //MARK: - View Lifecycle
   
@@ -36,6 +39,20 @@ class CartViewController: UIViewController {
     
     title = "Cart"
     configureFromCart()
+    setupCart()
+  }
+  
+  //MARK: Rx Setup
+  private func setupCart() {
+    let cart = ShoppingCart.sharedCart.chocolates.asObservable()
+    cart.bindTo(
+      tableView
+      .rx
+      .items(cellIdentifier: ShoppingCartCell.Identifier, cellType: ShoppingCartCell.self)) {
+          row, chocolate, cell in
+          cell.configureWithChocolate(chocolate: chocolate)
+    }
+    .addDisposableTo(disposeBag)
   }
   
   private func configureFromCart() {
@@ -45,7 +62,7 @@ class CartViewController: UIViewController {
     }
     
     let cart = ShoppingCart.sharedCart
-    totalItemsLabel.text = cart.itemCountString()
+    //totalItemsLabel.text = cart.itemCountString()
     
     let cost = cart.totalCost()
     totalCostLabel.text = CurrencyFormatter.dollarsFormatter.rw_string(from: cost)

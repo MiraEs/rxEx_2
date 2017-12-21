@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4980BA821FEB72E500C1BFE0 /* ShoppingCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4980BA811FEB72E500C1BFE0 /* ShoppingCartCell.swift */; };
 		9B4068D31D0E5539009859C5 /* ChocolateNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4068D21D0E5539009859C5 /* ChocolateNavigationController.swift */; };
 		9B4EDDA31D067DD000C26AD9 /* BillingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4EDDA21D067DD000C26AD9 /* BillingInfoViewController.swift */; };
 		9B4EDDA71D068A2100C26AD9 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4EDDA61D068A2100C26AD9 /* CardType.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		24C6A4382DED490646C5C146 /* Pods-Chocotastic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocotastic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chocotastic/Pods-Chocotastic.debug.xcconfig"; sourceTree = "<group>"; };
 		2A20AB293DCC9F450AC8990D /* Pods_Chocotastic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chocotastic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4980BA811FEB72E500C1BFE0 /* ShoppingCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartCell.swift; sourceTree = "<group>"; };
 		9B4068D21D0E5539009859C5 /* ChocolateNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChocolateNavigationController.swift; sourceTree = "<group>"; };
 		9B4EDDA21D067DD000C26AD9 /* BillingInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillingInfoViewController.swift; sourceTree = "<group>"; };
 		9B4EDDA61D068A2100C26AD9 /* CardType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				9BE3732C1D05164A0024946D /* ChocolateCell.swift */,
 				9B51488B1D07935300284F30 /* ChocolateButton.swift */,
 				9B51488D1D07C49400284F30 /* ValidatingTextField.swift */,
+				4980BA811FEB72E500C1BFE0 /* ShoppingCartCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				9B51488E1D07C49400284F30 /* ValidatingTextField.swift in Sources */,
 				9BC05E8E1D06701A001CC382 /* SegueHandler.swift in Sources */,
 				9BE373191D0511EE0024946D /* ChocolatesOfTheWorldViewController.swift in Sources */,
+				4980BA821FEB72E500C1BFE0 /* ShoppingCartCell.swift in Sources */,
 				9BE373171D0511EE0024946D /* AppDelegate.swift in Sources */,
 				9BC05E891D066C71001CC382 /* CartViewController.swift in Sources */,
 				9BC05E8B1D066E1C001CC382 /* CurrencyFormatter.swift in Sources */,
