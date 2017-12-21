@@ -33,6 +33,8 @@ class BillingInfoViewController: UIViewController {
   @IBOutlet private var purchaseButton: UIButton!
   
   private let cardType: Variable<CardType> = Variable(.Unknown)
+  private let throttleInterval = 0.1
+  private let disposeBag = DisposeBag()
   
   //MARK: - View Lifecycle
   
@@ -40,7 +42,8 @@ class BillingInfoViewController: UIViewController {
     super.viewDidLoad()
     
     title = "💳 Info"
-    
+    setupCardImageDisplay()
+    setupTextChangeHandling()
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,7 +60,56 @@ class BillingInfoViewController: UIViewController {
   }
   
   //MARK: - RX Setup
-
+  
+  private func setupCardImageDisplay() {
+    cardType
+    .asObservable()
+      .subscribe(onNext: {
+        cardType in
+        self.creditCardImageView.image = cardType.image
+      })
+    .addDisposableTo(disposeBag)
+  }
+  
+  private func setupTextChangeHandling() {
+    let creditCardValid = creditCardNumberTextField
+    .rx
+    .text
+    .throttle(throttleInterval, scheduler: MainScheduler.instance)
+    .map{ self.validate(cardText: $0) }
+    
+    creditCardValid
+      .subscribe(onNext: { self.creditCardNumberTextField.valid = $0 })
+      .addDisposableTo(disposeBag)
+    
+    let expirationValid = expirationDateTextField
+    .rx
+    .text
+    .throttle(throttleInterval, scheduler: MainScheduler.instance)
+      .map{ self.validate(expirationDateText: $0)}
+    
+    expirationValid
+      .subscribe(onNext: { self.expirationDateTextField.valid = $0 })
+      .addDisposableTo(disposeBag)
+    
+    let cvvValid = cvvTextField
+    .rx
+    .text
+      .map { self.validate(cvvText: $0)}
+    
+    cvvValid
+      .subscribe(onNext: {self.cvvTextField.valid = $0})
+      .addDisposableTo(disposeBag)
+    
+    let everythingValid = Observable
+      .combineLatest(creditCardValid, expirationValid, cvvValid) {
+        $0 && $1 && $2
+    }
+    
+    everythingValid
+    .bindTo(purchaseButton.rx.enabled)
+    .addDisposableTo(disposeBag)
+  }
   
 
   //MARK: - Validation methods
