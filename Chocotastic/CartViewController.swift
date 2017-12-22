@@ -40,6 +40,7 @@ class CartViewController: UIViewController {
     title = "Cart"
     configureFromCart()
     setupCart()
+    setupCellTapHandling()
   }
   
   //MARK: Rx Setup
@@ -55,6 +56,15 @@ class CartViewController: UIViewController {
     .addDisposableTo(disposeBag)
   }
   
+  //https://stackoverflow.com/questions/42050066/rxswift-modify-tableview-cell-on-select
+  private func setupCellTapHandling() {
+    tableView.rx.itemDeleted
+      .subscribe(onNext: { indexPath in
+        ShoppingCart.sharedCart.chocolates.value.remove(at: indexPath.row)
+        self.configureFromCart()
+      }).addDisposableTo(disposeBag)
+  }
+  
   private func configureFromCart() {
     guard checkoutButton != nil else {
       //UI has not been instantiated yet. Bail!
@@ -62,8 +72,6 @@ class CartViewController: UIViewController {
     }
     
     let cart = ShoppingCart.sharedCart
-    //totalItemsLabel.text = cart.itemCountString()
-    
     let cost = cart.totalCost()
     totalCostLabel.text = CurrencyFormatter.dollarsFormatter.rw_string(from: cost)
     
